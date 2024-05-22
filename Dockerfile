@@ -1,4 +1,4 @@
-# Source: https://github.com/ThierrySans/CSCC69-Pintos
+# Inspired from https://github.com/ThierrySans/CSCC69-Pintos
 FROM ubuntu:18.04
 
 RUN apt-get update \
@@ -7,7 +7,6 @@ RUN apt-get update \
     build-essential \
     gdb \
     gcc \
-    emacs \
     vim \
     nano \
     qemu \
@@ -21,22 +20,8 @@ RUN apt-get update \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
-RUN mkdir -p /pintos/src
-COPY . /pintos/src
+RUN mkdir -p /pintos
 
-ENV PINTOS_HOME=/pintos
-ENV PATH=/pintos/src/utils:$PATH
+ENV PATH=/pintos/utils:$PATH
 
 WORKDIR /pintos
-
-RUN cd /pintos/src/misc && \
-    wget --no-check-certificate https://sourceforge.net/projects/bochs/files/bochs/2.6.11/bochs-2.6.11.tar.gz && \
-    sh ./bochs-2.6.11-build.sh /usr/local && \
-    rm -f bochs-2.6.11.tar.gz
-
-RUN cd /pintos/src/utils && make
-
-RUN cd /pintos/src/threads && make
-
-CMD ["pintos"]
-
