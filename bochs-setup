@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# This file should only be run once to install bochs in pintos
 cd /pintos/misc
 wget --no-check-certificate https://sourceforge.net/projects/bochs/files/bochs/2.6.11/bochs-2.6.11.tar.gz
 sh ./bochs-2.6.11-build.sh /usr/local
-rm -f bochs-2.6.11.tar.gz
+rm -f /pintos/misc/bochs-2.6.11.tar.gz
