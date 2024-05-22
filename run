@@ -1,0 +1,30 @@
+#!/bin/bash
+
+IMAGE_NAME="pintos-base-image"
+CONTAINER_NAME="pintos-run"
+
+function build_image {
+    docker rmi -f $IMAGE_NAME 2>/dev/null
+    docker build -t $IMAGE_NAME .
+}
+
+function clean_all {
+    docker rm -f $CONTAINER_NAME 2>/dev/null
+    docker rmi -f $IMAGE_NAME 2>/dev/null
+}
+
+function run_container {
+    docker run -it --platform linux/amd64 --rm --name $CONTAINER_NAME -v "$(pwd):/pintos" $IMAGE_NAME bash
+}
+
+if [ $# -eq 0 ]; then
+    run_container
+elif [ "$1" == "build" ]; then
+    build_image
+elif [ "$1" == "clean" ]; then
+    clean_all
+elif [ "$1" == "prune" ]; then
+    docker system prune -a
+else
+    echo "Invalid argument. Use 'build' to rebuild the image or 'clean' to remove the container and image."
+fi

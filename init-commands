@@ -1,9 +1,0 @@
-docker build -t pintos .
-
-
-
-docker run -it --platform linux/amd64 --rm --name pintos -v $(pwd):/pintos pintos
-
-
-Potentially Usefull Commands:
-docker system prune -a
