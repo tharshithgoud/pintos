@@ -5,7 +5,7 @@ CONTAINER_NAME="pintos-run"
 
 function build_image {
     docker rmi -f $IMAGE_NAME 2>/dev/null
-    docker build -t $IMAGE_NAME .
+    docker build --platform linux/amd64 -t $IMAGE_NAME .
 }
 
 function clean_all {
